@@ -1,6 +1,6 @@
 module github.com/tertianet/wails/v2
 
-replace github.com/wailsapp/wails/v2 => .
+replace github.com/wailsapp/wails/v2 => github.com/tertianet/wails/v2 v2.0.0-20250417225310-a4d0f7e18094
 
 go 1.22.0
 
