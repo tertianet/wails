@@ -1,6 +1,6 @@
-module github.com/tertianet/wails/v2
+module github.com/wailsapp/wails/v2
 
-replace github.com/wailsapp/wails/v2 => github.com/tertianet/wails/v2 v2.0.0-20250417225310-a4d0f7e18094
+replace github.com/wailsapp/wails/v2 => github.com/tertianet/wails/v2 v2.0.0-20250417230049-45291b0607b9
 
 go 1.22.0
 
@@ -40,7 +40,6 @@ require (
 	github.com/tkrajina/go-reflector v0.5.8
 	github.com/wailsapp/go-webview2 v1.0.19
 	github.com/wailsapp/mimetype v1.4.1
-	github.com/wailsapp/wails/v2 v2.10.1
 	github.com/wzshiming/ctc v1.2.3
 	golang.org/x/mod v0.23.0
 	golang.org/x/net v0.35.0
