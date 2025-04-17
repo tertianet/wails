@@ -1,7 +1,5 @@
 module github.com/tertianet/wails/v2
 
-replace github.com/tertianet/wails/v2 => github.com/tertianet/wails/v2 v2.0.0-20250417230049-45291b0607b9
-
 go 1.22.0
 
 require (
