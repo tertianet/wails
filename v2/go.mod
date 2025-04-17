@@ -1,4 +1,4 @@
-module github.com/wailsapp/wails/v2
+module github.com/tertianet/wails/v2
 
 replace github.com/wailsapp/wails/v2 => github.com/tertianet/wails/v2 v2.0.0-20250417230049-45291b0607b9
 
