@@ -266,3 +266,92 @@ func buildApplication(f *flags.Build) error {
 
 	return nil
 }
+
+func buildApplicationNSIS(f *flags.Build) error {
+	if f.NoColour {
+		pterm.DisableColor()
+		colour.ColourEnabled = false
+	}
+
+	quiet := f.Verbosity == flags.Quiet
+
+	// Create logger
+	logger := clilogger.New(os.Stdout)
+	logger.Mute(quiet)
+
+	if quiet {
+		pterm.DisableOutput()
+	} else {
+		app.PrintBanner()
+	}
+
+	err := f.Process()
+	if err != nil {
+		return err
+	}
+
+	cwd, err := os.Getwd()
+	if err != nil {
+		return err
+	}
+	projectOptions, err := project.Load(cwd)
+	if err != nil {
+		return err
+	}
+
+	// Set obfuscation from project file
+	if projectOptions.Obfuscated {
+		f.Obfuscated = projectOptions.Obfuscated
+	}
+
+	// Set garble args from project file
+	if projectOptions.GarbleArgs != "" {
+		f.GarbleArgs = projectOptions.GarbleArgs
+	}
+
+	buildOptions := &build.Options{
+		Logger:            logger,
+		OutputType:        "desktop",
+		OutputFile:        f.OutputFilename,
+		CleanBinDirectory: f.Clean,
+		Mode:              f.GetBuildMode(),
+		Devtools:          f.Debug || f.Devtools,
+		Pack:              !f.NoPackage,
+		LDFlags:           f.LdFlags,
+		Compiler:          f.Compiler,
+		SkipModTidy:       f.SkipModTidy,
+		Verbosity:         f.Verbosity,
+		ForceBuild:        f.ForceBuild,
+		IgnoreFrontend:    f.SkipFrontend,
+		Compress:          f.Upx,
+		CompressFlags:     f.UpxFlags,
+		UserTags:          f.GetTags(),
+		WebView2Strategy:  f.GetWebView2Strategy(),
+		TrimPath:          f.TrimPath,
+		RaceDetector:      f.RaceDetector,
+		WindowsConsole:    f.WindowsConsole,
+		Obfuscated:        f.Obfuscated,
+		GarbleArgs:        f.GarbleArgs,
+		SkipBindings:      f.SkipBindings,
+		ProjectData:       projectOptions,
+		SkipEmbedCreate:   f.SkipEmbedCreate,
+	}
+
+	desiredFilename := projectOptions.OutputFilename
+	if desiredFilename == "" {
+		desiredFilename = projectOptions.Name
+	}
+
+	amd64Binary := "build/bin/" + desiredFilename
+	arm64Binary := ""
+
+	if amd64Binary == "" && arm64Binary == "" {
+		return fmt.Errorf("cannot build nsis installer - no windows targets")
+	}
+
+	if err := build.GenerateNSISInstaller(buildOptions, amd64Binary, arm64Binary); err != nil {
+		return err
+	}
+
+	return nil
+}

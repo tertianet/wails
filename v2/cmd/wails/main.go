@@ -74,6 +74,7 @@ func main() {
 	defer printFooter()
 
 	app.NewSubCommandFunction("build", "Builds the application", buildApplication)
+	app.NewSubCommandFunction("build-nsis", "Builds the nsis installer using ready binary", buildApplicationNSIS)
 	app.NewSubCommandFunction("dev", "Runs the application in development mode", devApplication)
 	app.NewSubCommandFunction("doctor", "Diagnose your environment", diagnoseEnvironment)
 	app.NewSubCommandFunction("init", "Initialises a new Wails project", initProject)
