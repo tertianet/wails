@@ -24,10 +24,10 @@ import (
 	"sync"
 	"unsafe"
 
-	"github.com/wailsapp/wails/v2/internal/frontend"
-	"github.com/wailsapp/wails/v2/pkg/menu"
-	"github.com/wailsapp/wails/v2/pkg/options"
-	"github.com/wailsapp/wails/v2/pkg/options/linux"
+	"github.com/tertianet/wails/v2/internal/frontend"
+	"github.com/tertianet/wails/v2/pkg/menu"
+	"github.com/tertianet/wails/v2/pkg/options"
+	"github.com/tertianet/wails/v2/pkg/options/linux"
 )
 
 func gtkBool(input bool) C.gboolean {
