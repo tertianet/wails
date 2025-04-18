@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"os"
+	"path/filepath"
 	"runtime"
 	"strings"
 	"time"
@@ -337,7 +338,7 @@ func buildApplicationNSIS(f *flags.Build) error {
 		SkipEmbedCreate:   f.SkipEmbedCreate,
 	}
 
-	amd64Binary := "build/bin/" + buildOptions.OutputFile
+	amd64Binary := filepath.Join(buildOptions.ProjectData.GetBuildDir(), "bin", buildOptions.OutputFile)
 	arm64Binary := ""
 
 	if amd64Binary == "" && arm64Binary == "" {
