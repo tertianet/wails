@@ -337,12 +337,7 @@ func buildApplicationNSIS(f *flags.Build) error {
 		SkipEmbedCreate:   f.SkipEmbedCreate,
 	}
 
-	desiredFilename := projectOptions.OutputFilename
-	if desiredFilename == "" {
-		desiredFilename = projectOptions.Name
-	}
-
-	amd64Binary := "build/bin/" + desiredFilename
+	amd64Binary := "build/bin/" + buildOptions.OutputFile
 	arm64Binary := ""
 
 	if amd64Binary == "" && arm64Binary == "" {
